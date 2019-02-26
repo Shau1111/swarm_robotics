@@ -5,13 +5,17 @@ webcam=cv2.VideoCapture(0)
 
 while True:
 	ret,frame=webcam.read()
-	gray=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-
-	cv2.imshow('gray',gray)
 	cv2.imshow('color',frame)
-
-	if cv2.waitKey(1) & 0xFF==ord('q'):
+	k=cv2.waitKey(1)
+	if k==113:   #113='q'
 		break
+	if k==115:   #115='s'
+		print("Saving images started")
+		for x in xrange(1,20):
+			ret,frame=webcam.read()
+			cv2.imshow('color',frame)
+			cv2.imwrite('test%02d.jpg'%x,frame)
+		print("images successfully saved")
 
 webcam.release()
 cv2.destroyAllWindows()
